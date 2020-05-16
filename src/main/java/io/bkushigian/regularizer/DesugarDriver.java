@@ -14,6 +14,5 @@ public class DesugarDriver {
     cu = (CompilationUnit)v.visit(cu, null);
     cu = (CompilationUnit) a.visit(cu, null);
     System.out.println(cu);
-    System.out.println();
   }
 }

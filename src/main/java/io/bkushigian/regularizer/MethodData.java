@@ -1,6 +1,7 @@
 package io.bkushigian.regularizer;
 
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.stmt.DoStmt;
 import com.github.javaparser.ast.stmt.ForEachStmt;
 import com.github.javaparser.ast.stmt.ForStmt;
@@ -18,6 +19,20 @@ import java.util.*;
 public class MethodData {
   int loopCount = 0;
   Stack<LoopData> loops = new Stack<>();
+  int returns = 0;
+  final MethodDeclaration methodDecl;
+
+  public MethodData(MethodDeclaration n) {
+    methodDecl = n;
+  }
+
+  String returnsVarName() {
+    return "__method_has_returned__";
+  }
+
+  String resultVarName() {
+    return "__RETURN_RESULT__";
+  }
 
   private Map<Node, LoopData> loopData = new HashMap<>();
 
