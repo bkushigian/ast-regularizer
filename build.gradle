@@ -1,6 +1,5 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'idea'
+apply plugin: 'java'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -13,5 +12,27 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.15.18'
+    compile 'com.github.javaparser:javaparser-symbol-solver-core:3.15.18'
+}
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.bkushigian.regularizer.DesugarDriver',
+                "")
+    }
+}
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'ASTRegularizer',
+                'Implementation-Version': '0.1.0',
+                'Main-Class': 'io.bkushigian.regularizer.DesugarDriver'
+    }
+
+    baseName = project.name + '-all'
+    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
